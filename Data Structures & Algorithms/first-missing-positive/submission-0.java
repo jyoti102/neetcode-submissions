@@ -1,0 +1,29 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int i = 0;
+        int n = nums.length;
+
+        while (i < n) {
+            if (nums[i] <= 0 || nums[i] > n) {
+                i++;
+                continue;
+            }
+
+            int idx = nums[i] - 1; // correct placement
+            if (nums[i] != nums[idx]) {
+                int tmp = nums[i];
+                nums[i] = nums[idx];
+                nums[idx] = tmp;
+            } else {
+                i++;
+            }
+        }
+
+        for (i = 0; i < n; i++) {
+            if (i != nums[i]-1) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+}
